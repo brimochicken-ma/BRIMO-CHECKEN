@@ -1,0 +1,1496 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BRIMO CHECKEN</title>
+  <meta
+    name="description"
+    content="BRIMO CHECKEN, commandez vos burgers, tacos, wraps, menus familiaux et poulet frit a Casablanca."
+  />
+  <meta name="theme-color" content="#e97622" />
+  <link
+    rel="icon"
+    href='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="18" fill="%23e97622"/><text x="50%25" y="54%25" dominant-baseline="middle" text-anchor="middle" font-family="Arial, sans-serif" font-size="30" font-weight="700" fill="white">B</text></svg>'
+  />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&amp;family=Stack+Sans+Headline:wght@200..700&amp;display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    :root {
+      --accent: #e97622;
+      --accent-dark: #c45f15;
+      --text: #2d2d2d;
+      --text-muted: #6b6b6b;
+      --bg-page: #f8f8f8;
+      --white: #fff;
+      --shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+      --radius-card: 18px;
+      --radius-cat: 22px;
+    }
+
+    .stack-sans-headline-uniquifier {
+      font-family: "Stack Sans Headline", sans-serif;
+      font-optical-sizing: auto;
+      font-weight: 400;
+      font-style: normal;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Poppins", system-ui, -apple-system, sans-serif;
+      background: var(--white);
+      color: var(--text);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ——— Header (shared) ——— */
+    .site-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 16px 24px;
+      width: 100%;
+      max-width: 100%;
+      min-height: 118px;
+      margin: 0;
+      position: sticky;
+      top: 0;
+      background: var(--white);
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.09);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding-right: 0;
+      border-right: none;
+      margin-right: 0;
+    }
+
+    .brand__mark {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: linear-gradient(145deg, var(--accent) 0%, var(--accent-dark) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      font-size: 14px;
+      font-weight: 700;
+      text-align: center;
+      line-height: 1.15;
+      letter-spacing: 0.02em;
+    }
+
+    .brand__name {
+      font-weight: 700;
+      font-size: 1.45rem;
+      letter-spacing: 0.08em;
+      color: var(--text);
+      text-transform: uppercase;
+    }
+
+    .header-cta {
+      text-align: right;
+    }
+
+    .header-cta__row {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    .header-cta__icon {
+      width: 40px;
+      height: 40px;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .header-cta__title {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    .header-cta__phone {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--accent);
+      margin-top: 2px;
+    }
+
+    .header-cta__phone a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .header-cta__phone a:hover {
+      text-decoration: underline;
+    }
+
+    .btn-back {
+      width: 40px;
+      height: 40px;
+      border: none;
+      border-radius: 10px;
+      background: rgba(233, 118, 34, 0.15);
+      color: var(--accent);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 4px;
+      transition: background 0.2s;
+    }
+
+    .btn-back:hover {
+      background: rgba(233, 118, 34, 0.28);
+    }
+
+    .header-with-back {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* ——— Categories view ——— */
+    #view-categories .site-header {
+      padding-bottom: 12px;
+      margin-bottom: 10px;
+      border-bottom: 1px solid #e8e8e8;
+    }
+
+    .categories-title {
+      text-align: center;
+      font-size: 1.35rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      padding: 12px 16px 0;
+      margin-bottom: 36px;
+    }
+
+    .cat-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      padding: 0 14px 100px;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    @media (min-width: 1200px) {
+      .cat-grid {
+        grid-template-columns: repeat(4, 1fr);
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 20px 100px;
+      }
+    }
+
+    .cat-card {
+      aspect-ratio: 4 / 3;
+      max-height: 180px;
+    }
+
+    @media (max-width: 960px) {
+      .site-header {
+        min-height: 96px;
+        padding: 12px 16px;
+        gap: 12px;
+      }
+
+      .brand__mark {
+        width: 60px;
+        height: 60px;
+        font-size: 12px;
+      }
+
+      .brand__name {
+        font-size: 1.1rem;
+        letter-spacing: 0.05em;
+      }
+
+      .header-cta__icon {
+        width: 34px;
+        height: 34px;
+      }
+
+      .header-cta__title {
+        font-size: 0.78rem;
+      }
+
+      .header-cta__phone {
+        font-size: 0.86rem;
+      }
+
+      .categories-title {
+        font-size: 1.2rem;
+        padding-left: 8px;
+        padding-right: 8px;
+        margin-bottom: 28px;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .site-header {
+        min-height: 78px;
+        padding: 10px 12px;
+        gap: 10px;
+      }
+
+      .brand {
+        gap: 8px;
+        min-width: 0;
+      }
+
+      .brand__mark {
+        width: 48px;
+        height: 48px;
+        font-size: 11px;
+        flex-shrink: 0;
+      }
+
+      .brand__name {
+        font-size: 0.95rem;
+        letter-spacing: 0.03em;
+        line-height: 1.15;
+      }
+
+      .header-cta__row {
+        gap: 6px;
+      }
+
+      .header-cta__icon {
+        width: 28px;
+        height: 28px;
+      }
+
+      .header-cta__title {
+        display: block;
+        font-size: 0.7rem;
+        line-height: 1.1;
+      }
+
+      .header-cta__phone {
+        font-size: 0.8rem;
+        margin-top: 0;
+      }
+
+      .btn-back {
+        width: 34px;
+        height: 34px;
+        margin-right: 0;
+      }
+
+      .cat-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        padding: 0 12px 110px;
+      }
+
+      .cat-card {
+        max-height: 170px;
+      }
+
+      .cat-card__label {
+        font-size: 1rem;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .site-header {
+        min-height: 72px;
+        padding: 8px 10px;
+      }
+
+      .brand__mark {
+        width: 42px;
+        height: 42px;
+        font-size: 10px;
+      }
+
+      .brand__name {
+        font-size: 0.82rem;
+      }
+
+      .header-with-back {
+        gap: 6px;
+        min-width: 0;
+      }
+
+      .header-cta {
+        flex-shrink: 0;
+      }
+
+      .header-cta__icon {
+        display: none;
+      }
+
+      .header-cta__title {
+        font-size: 0.62rem;
+      }
+
+      .header-cta__phone {
+        font-size: 0.74rem;
+      }
+
+      .cat-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        padding: 0 12px 120px;
+      }
+
+      .cat-card {
+        max-height: 150px;
+      }
+
+      .categories-title {
+        font-size: 1.15rem;
+      }
+
+    }
+
+    @media (max-width: 380px) {
+      .site-header {
+        min-height: 64px;
+        padding: 8px;
+      }
+
+      .brand {
+        gap: 6px;
+      }
+
+      .brand__mark {
+        width: 38px;
+        height: 38px;
+        font-size: 9px;
+      }
+
+      .brand__name {
+        font-size: 0.74rem;
+        letter-spacing: 0.02em;
+      }
+
+      .header-cta__phone {
+        font-size: 0.68rem;
+      }
+
+      .header-cta__title {
+        font-size: 0.58rem;
+      }
+
+      .btn-back {
+        width: 30px;
+        height: 30px;
+      }
+
+      .cat-grid {
+        gap: 10px;
+        padding: 0 8px 120px;
+      }
+
+      .cat-card {
+        max-height: 130px;
+      }
+
+      .cat-card__label {
+        font-size: 0.95rem;
+        padding: 20px 10px;
+      }
+    }
+
+    .cat-card {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      border-radius: var(--radius-cat);
+      overflow: hidden;
+      cursor: pointer;
+      border: none;
+      display: block;
+      width: 100%;
+      padding: 0;
+      background: #ddd;
+      box-shadow: var(--shadow);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .cat-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12);
+    }
+
+    .cat-card__img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .cat-card__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.35));
+    }
+
+    .cat-card__label {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 30px;
+      text-align: center;
+      font-size: clamp(1rem, 2.5vw, 1.25rem);
+      font-weight: 800;
+      color: var(--white);
+      text-transform: lowercase;
+      line-height: 1.2;
+      font-family: "Poppins", "Stack Sans Headline", sans-serif;
+      text-shadow: 0 3px 12px rgba(0, 0, 0, 0.45);
+    }
+
+    /* ——— Menu view ——— */
+    #view-menu {
+      display: none;
+      background: var(--bg-page);
+      min-height: 100vh;
+      padding-bottom: 88px;
+    }
+
+    #view-menu.is-visible {
+      display: block;
+    }
+
+    #view-categories.hidden {
+      display: none;
+    }
+
+    .menu-header-bar {
+      background: var(--white);
+      border-bottom: 1px solid #e8e8e8;
+    }
+
+    .menu-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 20px 18px 28px;
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+      margin-top: 28px;
+    }
+
+    .section-heading:first-child {
+      margin-top: 0;
+    }
+
+    .section-heading__emoji {
+      font-size: 1.4rem;
+    }
+
+    .section-heading__title {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .section-heading__sub {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      width: 100%;
+      margin-top: -2px;
+    }
+
+    .items-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 0;
+    }
+
+    @media (max-width: 900px) {
+      .items-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 720px) {
+      .cat-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        padding: 0 14px 100px;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .items-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .menu-card {
+      position: relative;
+      background: var(--white);
+      border-radius: var(--radius-card);
+      padding: 18px 86px 18px 18px;
+      min-height: 72px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .menu-card--family-box {
+      justify-content: flex-start;
+      padding: 18px 72px 18px 16px;
+      min-height: auto;
+    }
+
+    .menu-card--family-box .menu-card__desc {
+      margin-bottom: 0;
+      padding-top: 12px;
+      padding-bottom: 12px;
+    }
+
+    .menu-card__name {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text);
+      text-transform: lowercase;
+      line-height: 1.35;
+      padding-right: 4px;
+      margin-bottom: 0;
+      letter-spacing: 0.01em;
+    }
+
+    .menu-card__desc {
+      font-size: 0.72rem;
+      margin-top: 0;
+      color: #515151;
+      line-height: 1.55;
+      margin-bottom: 0;
+      background: #f7f3ef;
+      border-left: 4px solid rgba(233, 118, 34, 0.45);
+      border-radius: 10px;
+      padding: 10px 12px;
+    }
+
+    .menu-card__option {
+      font-size: 0.72rem;
+      color: #9a4b10;
+      margin-top: 0;
+      font-weight: 700;
+      line-height: 1.45;
+      background: rgba(233, 118, 34, 0.12);
+      border: 1px dashed rgba(233, 118, 34, 0.45);
+      border-radius: 999px;
+      padding: 8px 12px;
+      display: inline-flex;
+      align-self: flex-start;
+      max-width: 100%;
+    }
+
+    .menu-card__option + .menu-card__option {
+      margin-top: 0;
+    }
+
+    .menu-card__preview-btn {
+      margin-top: 4px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      align-self: center;
+      margin-left: 0;
+      border-radius: 999px;
+      padding: 8px 12px;
+      background: transparent;
+      color: #111111;
+      font-size: 0.72rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid #111111;
+      box-shadow: none;
+      transition: background 0.18s ease, border-color 0.18s ease, color 0.18s ease, opacity 0.18s ease;
+    }
+
+    .menu-card__preview-btn:hover {
+      background: rgba(17, 17, 17, 0.06);
+      border-color: #000000;
+      color: #000000;
+      opacity: 0.92;
+    }
+
+    .price-pill {
+      position: absolute;
+      right: -6px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: var(--accent);
+      color: var(--white);
+      font-weight: 700;
+      font-size: 0.82rem;
+      padding: 10px 14px;
+      border-radius: 999px;
+      white-space: nowrap;
+      box-shadow: 0 2px 10px rgba(233, 118, 34, 0.45);
+    }
+
+    .special-block {
+      background: var(--white);
+      border-radius: var(--radius-card);
+      padding: 18px;
+      margin-top: 16px;
+      box-shadow: var(--shadow);
+    }
+
+    .special-block h4 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+      text-transform: lowercase;
+    }
+
+    .special-block .flavors {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .flavor-tag {
+      background: rgba(128, 128, 128, 0.1);
+      color: #666;
+      border: 1px solid rgba(128, 128, 128, 0.2);
+      border-radius: 50px;
+      padding: 4px 12px;
+      font-size: 0.7rem;
+      font-weight: 500;
+      display: inline-block;
+      white-space: nowrap;
+    }
+
+    .price-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px 20px;
+      margin-top: 8px;
+    }
+
+    .price-pair {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .price-row span:not(.pill-inline) {
+      font-size: 0.88rem;
+      font-weight: 500;
+    }
+
+    .price-row .pill-inline {
+      display: inline-block;
+      background: var(--accent);
+      color: var(--white);
+      font-weight: 700;
+      font-size: 0.8rem;
+      padding: 8px 14px;
+      border-radius: 999px;
+    }
+
+    .extra-note {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 10px;
+    }
+
+    .special-block__extra {
+      margin-top: 14px;
+    }
+
+    .image-modal {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 22px;
+      background: rgba(17, 17, 17, 0.82);
+      z-index: 999;
+    }
+
+    .image-modal.is-open {
+      display: flex;
+    }
+
+    .image-modal__dialog {
+      position: relative;
+      width: min(92vw, 760px);
+      max-height: 90vh;
+      background: var(--white);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+    }
+
+    .image-modal__close {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      width: 42px;
+      height: 42px;
+      border: none;
+      border-radius: 50%;
+      background: rgba(17, 17, 17, 0.72);
+      color: var(--white);
+      font-size: 1.4rem;
+      line-height: 1;
+      cursor: pointer;
+      z-index: 2;
+    }
+
+    .image-modal__img {
+      display: block;
+      width: 100%;
+      max-height: 72vh;
+      object-fit: cover;
+      background: #f1f1f1;
+    }
+
+    .image-modal__caption {
+      padding: 16px 18px 18px;
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--text);
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div id="view-categories">
+    <header class="site-header">
+      <div class="brand">
+        <div class="brand__mark">brimo</div>
+        <span class="brand__name">BRIMO CHECKEN</span>
+      </div>
+      <div class="header-cta">
+        <div class="header-cta__row">
+          <svg class="header-cta__icon" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+            <rect x="8" y="12" width="32" height="26" rx="4" stroke="currentColor" stroke-width="2.5" />
+            <path d="M16 12V10a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v2" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
+            <circle cx="20" cy="22" r="2" fill="currentColor" />
+            <circle cx="28" cy="22" r="2" fill="currentColor" />
+            <path d="M18 30c2 3 10 3 12 0" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          </svg>
+          <div>
+            <div class="header-cta__title">Commandez maintenant</div>
+            <div class="header-cta__phone"><a href="tel:+212680720477">+212 680 720 477</a></div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <h1 class="categories-title">Catégories</h1>
+    <div class="cat-grid" id="cat-grid"></div>
+  </div>
+
+  <div id="view-menu">
+    <div class="menu-header-bar">
+      <header class="site-header">
+        <div class="header-with-back">
+          <button type="button" class="btn-back" id="btn-back" aria-label="Retour">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <path d="M15 18l-6-6 6-6" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+          <div class="brand">
+            <div class="brand__mark">brimo</div>
+            <span class="brand__name">BRIMO CHECKEN</span>
+          </div>
+        </div>
+        <div class="header-cta">
+          <div class="header-cta__row">
+            <svg class="header-cta__icon" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+              <rect x="8" y="12" width="32" height="26" rx="4" stroke="currentColor" stroke-width="2.5" />
+              <path d="M16 12V10a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v2" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
+              <circle cx="20" cy="22" r="2" fill="currentColor" />
+              <circle cx="28" cy="22" r="2" fill="currentColor" />
+              <path d="M18 30c2 3 10 3 12 0" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+            </svg>
+            <div>
+              <div class="header-cta__title">Commandez maintenant</div>
+              <div class="header-cta__phone"><a href="tel:+212680720477">+212 680 720 477</a></div>
+            </div>
+          </div>
+        </div>
+      </header>
+    </div>
+    <div class="menu-inner" id="menu-inner"></div>
+  </div>
+
+  <div class="image-modal" id="image-modal" aria-hidden="true">
+    <div class="image-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="image-modal-caption">
+      <button type="button" class="image-modal__close" id="image-modal-close" aria-label="Fermer l'image">×</button>
+      <img class="image-modal__img" id="image-modal-img" alt="" />
+      <div class="image-modal__caption" id="image-modal-caption"></div>
+    </div>
+  </div>
+
+  <script>
+    const categoryImages = {
+      burgers: "assets/Burgeres.jpg",   // burger/poulet
+      poulet: "assets/ed83cb67-9870-4c5a-b438-736ded10cdc7.png",   // sandwichs poulet
+      familial: "assets/istockphoto-177005490-612x612.jpg",      // menus familiaux
+      bowls: "assets/bol et macaroni au fromage.jpg",                                  // bols + macaroni (meilleur disponible)
+      salades: "assets/eiliv-aceron-mW0LIBBHNdE-unsplash.jpg",                                // salades
+      jus: "assets/smoothies_sucre_gallerylarge.jpg",                                    // jus
+      poutines: "assets/poutines.jpg",                               // poutines, même style fast-food
+      tacos: "assets/tacos.png",                                  // tacos
+      wraps: "assets/wraps.png",                                  // wraps
+      kfc: "assets/poulet frit coreen .jpg",      // poulet frit coréen
+      kentucky: "assets/053-Photo_535x.jpg",      // kentucky style
+      fingers: "assets/bouchees a grignoter.jpg",        // bouchées à grignoter
+    };  
+    // Vérifie qu’aucune catégorie n’est sans image (fallback si besoin)
+    for (const cat of Object.keys(categoryImages)) {
+      if (!categoryImages[cat]) {
+        categoryImages[cat] = "assets/ed83cb67-9870-4c5a-b438-736ded10cdc7.png";
+      }
+    }
+
+    const menuData = {
+      burgers: {
+        emoji: "🍔",
+        title: "Burgers",
+        subtitle: "Poulet frit & burger Smach",
+        items: [
+          {
+            name: "Chicken Burger",
+            price: "45 DH",
+            desc: "Big Buns, Tenders, Fromage Cheddar, Laitue, Sauce Magic, Oignon",
+            option: "➕ Formule menu + 20 DH (frites + Pepsi).",
+            imagePreview: "Chicken Burger.png",
+            imageLabel: "Voir le burger",
+          },
+          {
+            name: "Biggest",
+            price: "60 DH",
+            desc: "Big Buns, Double Tenders, Fromage Cheddar, Laitue, Sauce Oignon",
+            option: "➕ Formule menu + 20 DH (frites + Pepsi).",
+            imagePreview: "Biggest.png",
+            imageLabel: "Voir le burger",
+          },
+          {
+            name: "Rosti Chicken",
+            price: "50 DH",
+            desc: "Tenders, laitue, cheddar, galette rosti, sauce.",
+            option: "➕ Formule menu + 20 DH (frites + Pepsi).",
+            imagePreview: "Rosti Chicken.png",
+            imageLabel: "Voir le burger",
+          },
+          {
+            name: "B-Tower",
+            price: "70 DH",
+            desc: "Double steak (200 g kefta), bacon, oignon caramélisé, champignon, cheddar, laitue, sauce.",
+            option: "➕ Formule menu + 20 DH (frites + Pepsi).",
+          },
+          {
+            name: "Hat-trick",
+            price: "85 DH",
+            desc: "Triple steak (300 g kefta), bacon, oignon caramélisé, champignon, cheddar, laitue, sauce.",
+            option: "➕ Formule menu + 20 DH (frites + Pepsi).",
+          },
+          {
+            name: "B-One",
+            price: "55 DH",
+            desc: "Steak simple (100 g kefta), bacon, oignon caramélisé, champignon, cheddar, laitue, sauce.",
+            option: "➕ Formule menu + 20 DH (frites + Pepsi).",
+          },
+        ],
+      },
+      bowls: {
+        emoji: "🥘",
+        title: "Bols & macaroni au fromage",
+        items: [
+          {
+            name: "BFC Riz",
+            price: "50 DH",
+            desc: "Riz basmati, tenders, raisins secs, oignon caramélisé, sauce BBQ",
+            imagePreview: "BFC Riz.png",
+            imageLabel: "Voir le bol",
+          },
+          {
+            name: "Crispy Strips",
+            price: "50 DH",
+            desc: "Riz basmati, tenders, raisins secs, sauce",
+            imagePreview: "CRISPY STRIPS.png",
+            imageLabel: "Voir le bol",
+          },
+          {
+            name: "Mac' kefta",
+            price: "50 DH",
+            desc: "Macaroni, kefta, oignon caramélisé, sauce fromage",
+            imagePreview: "Mac kefta.png",
+            imageLabel: "Voir le bol",
+          },
+          {
+            name: "Chicanos",
+            price: "50 DH",
+            desc: "Macaroni, jalapeños, tenders, sauce fromage",
+            imagePreview: "Chicanos.png",
+            imageLabel: "Voir le bol",
+          },
+        ],
+      },
+      salades: {
+        emoji: "🥗",
+        title: "Salades",
+        subtitle: "Fraiches et gourmandes",
+        items: [
+          {
+            name: "Salade Macaroni",
+            price: "35 DH",
+            desc: "Macaroni - maïs - Carottes râpées chou - Dinde fumée - marinée vinaigrette",
+            imagePreview: "Salade Macaroni.png",
+            imageLabel: "Voir la salade",
+          },
+          {
+            name: "Salade Chicken",
+            price: "45 DH",
+            desc: "Laitue - Tomate - Olive - Maïs Carottes râpées - Crispy chicken",
+            imagePreview: "Salade Chicken.png",
+            imageLabel: "Voir la salade",
+          },
+        ],
+      },
+      jus: {
+        emoji: "🧃",
+        title: "Jus",
+        subtitle: "Fraîcheur maison",
+        items: [
+          {
+            name: "Vitaboom",
+            desc: "Jus orange, ananas, mangue, banane sirop mangue, ananas",
+            price: "30 DH",
+            imagePreview: "Vitaboom.png",
+            imageLabel: "Voir le jus",
+          },
+          {
+            name: "Jus D'orange",
+            desc: "Orange",
+            price: "25 DH",
+            imagePreview: "Jus Dorange.png",
+            imageLabel: "Voir le jus",
+
+          },
+          {
+            name: "Jus De Banane",
+            desc: "Lait, banane",
+            price: "20 DH",
+            imagePreview: "Jus De Banane.png",
+            imageLabel: "Voir le jus",
+          },
+          {
+            name: "Sultane",
+            desc: "Lait, banane, dattes-raisin sec, figues sèches",
+            price: "30 DH",
+            imagePreview: "Sultane.png",
+            imageLabel: "Voir le jus",
+          },
+        ],
+      },
+      poutines: {
+        emoji: "🍟",
+        title: "Poutines (B-POUTINE)",
+        items: [
+          {
+            name: "Poutine mixte",
+            price: "50 DH",
+            desc: "Frites, tenders, dinde fumée, oignon croustillant, sauce.",
+            topping: "➕ Extra topping (+6 DH) : Doritos, Cheetos, Pringles.",
+            imagePreview: "POUTINE-MIX.png",
+            imageLabel: "Voir la poutine",
+          },
+          {
+            name: "Poutine croustillante",
+            price: "50 DH",
+            desc: "Frites, tenders, oignon croustillant, sauce.",
+            topping: "➕ Extra topping (+6 DH) : Doritos, Cheetos, Pringles.",
+            imagePreview: "POUTINE-CRISPY.png",
+            imageLabel: "Voir la poutine",
+          },
+        ],
+      },
+      tacos: {
+        emoji: "🌮",
+        title: "Tacos",
+        items: [
+          {
+            name: "4-Mix",
+            price: "70 DH",
+            desc: "35 cm, Dinde, kefta, tenders, dinde fumée, frites, sauce fromagère",
+            imagePreview: "4-Mix.png",
+            imageLabel: "Voir le tacos",
+          },
+          {
+            name: "Tacomix",
+            price: "50 DH",
+            desc: "Viande hachée, frites, sauce fromagère, tenders",
+            imagePreview: "Tacomix.png",
+            imageLabel: "Voir le tacos",
+          },
+          {
+            name: "Kentacos",
+            price: "50 DH",
+            desc: "Frites, sauce fromagère, crispy tenders",
+            imagePreview: "Kentacos.png",
+            imageLabel: "Voir le tacos",
+          },
+          {
+            name: "Tacos nuggets",
+            price: "50 DH",
+            desc: "Frites, pieces de nuggets, sauce fromage",
+            imagePreview: "Tacos nuggets.png",
+            imageLabel: "Voir le tacos",
+          },
+        ],
+      },
+      wraps: {
+        emoji: "🌯",
+        title: "Wraps (B-WRAP)",
+        items: [
+          {
+            name: "Wrap suisse",
+            price: "50 DH",
+            desc: "Laitue, tomate, tenders, fromage, cheddar, galette rosti, sauce.",
+            option: "➕ Formule menu + 20 DH (frites + Pepsi).",
+            imagePreview: "SWISS WRAP.png",
+            imageLabel: "Voir le wrap",
+          },
+          {
+            name: "Pockito",
+            price: "60 DH",
+            desc: "Laitue, tomate, tenders, kefta, Fromage cheddar, galette rosti, sauce.",
+            option: "➕ Formule menu + 20 DH (frites + Pepsi).",
+            imagePreview: "Pockito.png",
+            imageLabel: "Voir le wrap",
+          },
+        ],
+      },
+      poulet: {
+        emoji: "🍗",
+        title: "Sandwichs Poulet",
+        subtitle: "Sandwichs au poulet tendre et savoureux",
+        items: [
+          {
+            name: "B-Chicken",
+            price: "45 DH",
+            desc: "Pain long, laitue, tenders, tomate, Fromage cheddar, sauce onion.",
+            topping: "➕ Option MENU + 18 DH (frites + Pepsi).",
+            imagePreview: "B-Chicken.png",
+            imageLabel: "Voir le sandwich",
+          },
+          {
+            name: "B-Smocky",
+            price: "45 DH",
+            desc: "Pain long, laitue, tenders, tomate, dinde fumée, sauce BBQ.",
+            topping: "➕ Option MENU + 18 DH  (frites + Pepsi).",
+            imagePreview: "B-Smocky.png",
+            imageLabel: "Voir le sandwich",
+          },
+        ],
+      },
+      familial: {
+        emoji: "👨‍👩‍👧‍👦",
+        title: "Menus Familiaux",
+        subtitle: "Repas complets pour toute la famille",
+        items: [
+          {
+            name: "Family Box",
+            price: "185 DH",
+            desc: "• 5 tenders croustillants<br>• 5 franksticks savoureux<br>• 5 ailes de poulet dorées<br>• 2 portions de frites dorées à souhait<br>• 1 boisson rafraîchissante d'un litre",
+            imagePreview: "Menu familial.png",
+            imageLabel: "Voir le menu familial",
+          },
+          {
+            name: "Family Box",
+            price: "245 DH",
+            desc: "• 7 tenders croustillants<br>• 7 franksticks savoureux<br>• 7 ailes de poulet dorées<br>• 3 portions de frites dorées à souhait<br>• 2 boisson rafraîchissante d'un litre",
+            imagePreview: "Menu familial.png",
+            imageLabel: "Voir le menu familial",
+          }
+        ],
+      },
+      kfc: {
+        emoji: "🍗",
+        title: "Poulet frit coréen",
+        special: [
+          {
+            name: "Lanières sticky",
+            flavors: "Barbecue fumé / citron & piment / curry",
+            prices: [
+              { label: "4 pièces", value: "40 DH" },
+              { label: "8 pièces", value: "70 DH" },
+            ],
+            extra: "➕ Extra topping (+6 DH) : Doritos, Cheetos, Pringles.",
+            imagePreview: "c2d7d8d7-08b1-4fec-848f-3d17b2da12f5.jpeg",
+            imageLabel: "Voir le poulet frit coréen",
+          },
+          {
+            name: "Ailes sticky",
+            flavors: "Asie / Volcan / barbecue sucré",
+            prices: [
+              { label: "6 pièces", value: "40 DH" },
+              { label: "12 pièces", value: "70 DH" },
+            ],
+            extra: "➕ Extra topping (+6 DH) : Doritos, Cheetos, Pringles.",
+            imagePreview: "8a276225-ecbf-42db-8e24-b3ead5291e14.jpeg",
+            imageLabel: "Voir le poulet frit coréen",
+          },
+        ],
+      },
+      kentucky: {
+        emoji: "🍗",
+        title: "Kentucky Style",
+        subtitle: "Drumsticks, tenders et hot wings",
+        streetRows: [
+          {
+            name: "Drumsticks",
+            prices: [
+              { label: "2 pièces", value: "35 DH" },
+              { label: "4 pièces", value: "65 DH" },
+            ],
+            imagePreview: "drumsticks.png",
+            imageLabel: "Voir les drumsticks",
+          },
+          {
+            name: "Tender",
+            prices: [
+              { label: "4 pièces", value: "40 DH" },
+              { label: "8 pièces", value: "70 DH" },
+            ],
+              imagePreview: "TENDER.png",
+              imageLabel: "Voir les tenders",
+          },
+          {
+            name: "Hot Wings",
+            prices: [
+              { label: "6 pièces", value: "40 DH" },
+              { label: "12 pièces", value: "70 DH" },
+            ],
+              imagePreview: "HOT-WINGS.png",
+              imageLabel: "Voir les hot wings",
+          },
+        ],
+      },
+      fingers: {
+        emoji: "🧀",
+        title: "Bouchées à grignoter",
+        streetRows: [
+          {
+            name: "Nuggets",
+            prices: [
+              { label: "5 pièces", value: "30 DH" },
+              { label: "10 pièces", value: "50 DH" },
+            ],
+            imageLabel: "Voir les Nuggets",
+          },
+          {
+            name: "Mozarella sticks",
+            prices: [
+              { label: "4 pièces", value: "30 DH" },
+              { label: "8 pièces", value: "50 DH" },
+            ],
+              imagePreview: "MOZARELLA STICKS.png",
+              imageLabel: "Voir les Mozarella sticks",
+          },
+          {
+            name: "Jalapeños cheddar",
+            prices: [
+              { label: "3 pièces", value: "30 DH" },
+              { label: "6 pièces", value: "50 DH" },
+            ],
+            imagePreview: "Sans-titre-3.png",
+            imageLabel: "Voir les jalapeños cheddar",
+          },
+        ],
+      },
+    };
+
+    const categoryList = [
+      { id: "burgers", label: "Burgers" },
+      { id: "poulet", label: "Sandwichs Poulet" },      { id: "familial", label: "menus familiaux" },      { id: "bowls", label: "Bols & Macaroni au fromage" },
+      { id: "salades", label: "Salades" },
+      { id: "jus", label: "Jus" },
+      { id: "poutines", label: "Poutines" },
+      { id: "tacos", label: "Tacos" },
+      { id: "wraps", label: "Wraps" },
+      { id: "kfc", label: "Poulet frit coréen" },
+      { id: "kentucky", label: "Kentucky Style" },
+      { id: "fingers", label: "Bouchées à grignoter" },
+    ];
+
+    function renderCategoryGrid() {
+      const grid = document.getElementById("cat-grid");
+      grid.innerHTML = categoryList
+        .map(
+          (c) => `
+        <button type="button" class="cat-card" data-id="${c.id}" aria-label="${c.label}">
+          <img class="cat-card__img" src="${categoryImages[c.id]}" alt="${c.label}" loading="lazy" decoding="async" />
+          <div class="cat-card__overlay"></div>
+          <span class="cat-card__label">${c.label}</span>
+        </button>
+      `
+        )
+        .join("");
+      grid.querySelectorAll(".cat-card").forEach((btn) => {
+        btn.addEventListener("click", () => openMenu(btn.dataset.id));
+      });
+    }
+
+    function esc(s) {
+      const d = document.createElement("div");
+      d.textContent = s;
+      return d.innerHTML;
+    }
+
+    function renderPreviewButton(src, title, label = "Voir la photo") {
+      return `<button type="button" class="menu-card__preview-btn" data-preview-src="${esc(
+        src
+      )}" data-preview-title="${esc(title)}">${esc(label)}</button>`;
+    }
+
+    function renderMenuCard(item) {
+      const opt = item.option
+        ? `<div class="menu-card__option">${esc(item.option)}</div>`
+        : "";
+      const topping = item.topping
+        ? `<div class="menu-card__option">${esc(item.topping)}</div>`
+        : "";
+      const previewBtn = item.previewSrc
+        ? renderPreviewButton(
+            item.previewSrc,
+            item.previewTitle || item.name,
+            item.imageLabel || "Voir la photo"
+          )
+        : "";
+      // Allow HTML in description for special items like Family Box
+      const descHtml = item.name.includes("Family Box") 
+        ? item.desc 
+        : esc(item.desc);
+      
+      // Special layout for Family Box (no centering, more compact)
+      const cardClass = item.name.includes("Family Box") 
+        ? "menu-card menu-card--family-box" 
+        : "menu-card";
+      
+      return `
+        <article class="${cardClass}">
+          <div class="menu-card__name">${esc(item.name)}</div>
+          ${
+            item.desc
+              ? `<div class="menu-card__desc">${descHtml}</div>`
+              : ""
+          }
+          ${opt}
+          ${topping}
+          ${previewBtn}
+          <div class="price-pill">${esc(item.price)}</div>
+        </article>
+      `;
+    }
+
+    const imageModal = document.getElementById("image-modal");
+    const imageModalImg = document.getElementById("image-modal-img");
+    const imageModalCaption = document.getElementById("image-modal-caption");
+    const imageModalClose = document.getElementById("image-modal-close");
+
+    function openImageModal(src, title) {
+      imageModalImg.src = src;
+      imageModalImg.alt = title;
+      imageModalCaption.textContent = title;
+      imageModal.classList.add("is-open");
+      imageModal.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeImageModal() {
+      imageModal.classList.remove("is-open");
+      imageModal.setAttribute("aria-hidden", "true");
+      imageModalImg.src = "";
+      imageModalImg.alt = "";
+      imageModalCaption.textContent = "";
+      document.body.style.overflow = "";
+    }
+
+    function renderMenu(id) {
+      const data = menuData[id];
+      const inner = document.getElementById("menu-inner");
+      const categoryPreview = categoryImages[id];
+      let html = "";
+
+      const sub = data.subtitle
+        ? `<span class="section-heading__sub">${esc(data.subtitle)}</span>`
+        : "";
+
+      html += `<div class="section-heading">
+        <span class="section-heading__emoji">${data.emoji}</span>
+        <span class="section-heading__title">${esc(data.title)}</span>
+        ${sub}
+      </div>`;
+
+      if (data.items && data.items.length) {
+        const itemsWithPreview = data.items.map((item) => ({
+          ...item,
+          previewSrc: item.imagePreview || categoryPreview,
+          previewTitle: item.name,
+        }));
+        html += `<div class="items-grid">${itemsWithPreview.map(renderMenuCard).join("")}</div>`;
+      }
+
+      if (data.footer) {
+        html += `<p class="extra-note" style="margin-top:14px">${esc(
+          data.footer
+        )}</p>`;
+      }
+
+      if (data.special) {
+        data.special.forEach((block) => {
+          const flavorsArray = block.flavors.split(' / ');
+          const flavorsHtml = flavorsArray.map(flavor => 
+            `<span class="flavor-tag">${esc(flavor.trim())}</span>`
+          ).join('');
+          
+          html += `<div class="special-block">
+            <h4>${esc(block.name)}</h4>
+            <div class="flavors">${flavorsHtml}</div>
+            <div class="price-row">
+              ${block.prices
+                .map(
+                  (p) =>
+                    `<span class="price-pair"><span>${esc(
+                      p.label
+                    )}</span><span class="pill-inline">${esc(
+                      p.value
+                    )}</span></span>`
+                )
+                .join("")}
+            </div>
+            ${
+              block.extra
+                ? `<div class="menu-card__option special-block__extra">${esc(
+                    block.extra
+                  )}</div>`
+                : ""
+            }
+            ${renderPreviewButton(
+              block.imagePreview || categoryPreview,
+              block.name,
+              block.imageLabel || "Voir la photo"
+            )}
+          </div>`;
+        });
+      }
+
+      if (data.streetRows) {
+        html += `<div class="items-grid">`;
+        data.streetRows.forEach((row) => {
+          const pricesHtml = row.prices
+            .map(
+              (p) =>
+                `<span style="display:inline-flex;align-items:center;gap:8px;margin-right:12px;margin-top:6px"><span style="font-size:0.85rem">${esc(
+                  p.label
+                )}</span><span class="pill-inline" style="position:relative;right:auto;top:auto;transform:none">${esc(
+                  p.value
+                )}</span></span>`
+            )
+            .join("");
+          html += `<article class="menu-card" style="padding:16px;grid-column:1/-1;max-width:100%">
+            <div class="menu-card__name" style="margin-bottom:10px">${esc(
+              row.name
+            )}</div>
+            <div class="price-row" style="margin-top:0">${pricesHtml}</div>
+            ${renderPreviewButton(
+              row.imagePreview || categoryPreview,
+              row.name,
+              row.imageLabel || "Voir la photo"
+            )}
+          </article>`;
+        });
+        html += `</div>`;
+      }
+
+      inner.innerHTML = html;
+      inner.querySelectorAll(".menu-card__preview-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          openImageModal(btn.dataset.previewSrc, btn.dataset.previewTitle);
+        });
+      });
+    }
+
+    function openMenu(id) {
+      document.getElementById("view-categories").classList.add("hidden");
+      document.getElementById("view-menu").classList.add("is-visible");
+      renderMenu(id);
+      window.location.hash = id;
+    }
+
+    function closeMenu() {
+      document.getElementById("view-categories").classList.remove("hidden");
+      document.getElementById("view-menu").classList.remove("is-visible");
+      if (window.location.hash) {
+        history.replaceState(null, "", window.location.pathname + window.location.search);
+      }
+    }
+
+    document.getElementById("btn-back").addEventListener("click", closeMenu);
+    imageModalClose.addEventListener("click", closeImageModal);
+    imageModal.addEventListener("click", (event) => {
+      if (event.target === imageModal) closeImageModal();
+    });
+    window.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && imageModal.classList.contains("is-open")) {
+        closeImageModal();
+      }
+    });
+
+    window.addEventListener("hashchange", () => {
+      const h = window.location.hash.replace(/^#/, "");
+      if (h && menuData[h]) openMenu(h);
+      else closeMenu();
+    });
+
+    renderCategoryGrid();
+
+    const initial = window.location.hash.replace(/^#/, "");
+    if (initial && menuData[initial]) {
+      openMenu(initial);
+    }
+  </script>
+</body>
+</html>
